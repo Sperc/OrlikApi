@@ -3,12 +3,23 @@ package com.sosnowka.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Pawel on 14.10.2017.
  */
 @Entity
 public class Booking {
+    @ManyToOne
+    @JoinColumn(name = "playground")
+    @JsonIgnoreProperties("bookingSet")
+    private Playground playground;
+
+    @ManyToMany
+    @JsonIgnoreProperties("usersBookingSet")
+    private Set<AppUser> appUserSet;
+
     @Id
     @GeneratedValue
     private Long id;
@@ -18,12 +29,7 @@ public class Booking {
     private double endOrder;
     private int maxNumberOfPlayer = 14;
     private boolean isAvailable = true;
-
-    @ManyToOne
-    @JoinColumn(name = "playground")
-    @JsonIgnoreProperties("bookingSet")
-    private Playground playground;
-
+    private Long leaderId;
 
     public Booking(){}
 
@@ -81,5 +87,21 @@ public class Booking {
 
     public void setPlayground(Playground playground) {
         this.playground = playground;
+    }
+
+    public Long getLeaderId() {
+        return leaderId;
+    }
+
+    public void setLeaderId(Long leaderId) {
+        this.leaderId = leaderId;
+    }
+
+    public Set<AppUser> getAppUserSet() {
+        return appUserSet;
+    }
+
+    public void setAppUserSet(Set<AppUser> appUserSet) {
+        this.appUserSet = appUserSet;
     }
 }

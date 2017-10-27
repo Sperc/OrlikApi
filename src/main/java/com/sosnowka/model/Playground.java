@@ -14,6 +14,10 @@ import java.util.Set;
 @Entity
 @JsonRootName("playground")
 public class Playground {
+    @OneToMany(mappedBy = "playground")
+    @JsonIgnoreProperties("playground")
+    private Set<Booking> bookingSet;
+
     @Id
     @GeneratedValue
     private Long id;
@@ -23,10 +27,6 @@ public class Playground {
     private String streetNumber;
     private double longitude;
     private double latitude;
-
-    @OneToMany(mappedBy = "playground")
-    @JsonIgnoreProperties("playground")
-    private Set<Booking> bookingSet;
 
     public Playground() {
     }

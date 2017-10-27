@@ -1,7 +1,10 @@
 package com.sosnowka.controller;
 
+import com.sosnowka.model.AppUser;
 import com.sosnowka.model.Playground;
-import com.sosnowka.repository.PlaygroundRepository;
+import com.sosnowka.model.Team;
+import com.sosnowka.repository.AppUserRepository;
+import com.sosnowka.repository.TeamRepository;
 import com.sosnowka.service.PlaygroundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,10 @@ public class PlaygroundController {
 
     @Autowired
     PlaygroundService playgroundService;
+    @Autowired
+    AppUserRepository appUserRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
     @GetMapping("/get-by-city/{city}")
     public ResponseEntity<List<Playground>> findPlaygroundByCity(
@@ -26,5 +33,12 @@ public class PlaygroundController {
     ) {
         return new ResponseEntity<List<Playground>>(playgroundService.findPlaygroundByCityName(city), HttpStatus.OK);
     }
-
+    @GetMapping("/get-user")
+    public List<AppUser> getUser(){
+        return appUserRepository.findAll();
+    }
+    @GetMapping("/get-team")
+    public List<Team> getTeam(){
+        return teamRepository.findAll();
+    }
 }
