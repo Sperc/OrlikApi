@@ -1,29 +1,26 @@
 package com.sosnowka.controller;
 
 import com.sosnowka.model.Booking;
-import com.sosnowka.service.BookingService;
+import com.sosnowka.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
- * Created by Pawel on 21.10.2017.
+ * Created by Pawel on 28.10.2017.
  */
 @RestController
 @RequestMapping("/booking")
 public class BookingController {
     @Autowired
-    private BookingService bookingService;
-    @GetMapping("{date}")
-    public ResponseEntity<List<Booking>> getBookingByDay(
-            @PathVariable("date") String date){
-        return new ResponseEntity<List<Booking>>(bookingService.getBookingByDate(date), HttpStatus.OK);
+    BookingRepository bookingRepository;
+    @GetMapping("/get-all")
+    public List<Booking> allList(){
+        return bookingRepository.findAll();
     }
-    @PostMapping("/add")
-    public ResponseEntity<Booking> addBook(@RequestBody Booking booking){
-                return new ResponseEntity<Booking>(bookingService.addBooking(booking),HttpStatus.OK);
-    }
+
+
 }

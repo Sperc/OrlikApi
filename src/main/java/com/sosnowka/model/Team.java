@@ -2,10 +2,7 @@ package com.sosnowka.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -17,7 +14,7 @@ public class Team {
     @JsonIgnoreProperties("userTeams")
     private Set<AppUser> setOfUsers;
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
     private String name;

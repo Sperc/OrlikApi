@@ -22,10 +22,6 @@ public class PlaygroundController {
 
     @Autowired
     PlaygroundService playgroundService;
-    @Autowired
-    AppUserRepository appUserRepository;
-    @Autowired
-    TeamRepository teamRepository;
 
     @GetMapping("/get-by-city/{city}")
     public ResponseEntity<List<Playground>> findPlaygroundByCity(
@@ -33,12 +29,12 @@ public class PlaygroundController {
     ) {
         return new ResponseEntity<List<Playground>>(playgroundService.findPlaygroundByCityName(city), HttpStatus.OK);
     }
-    @GetMapping("/get-user")
-    public List<AppUser> getUser(){
-        return appUserRepository.findAll();
+    @GetMapping("/get-all")
+    public ResponseEntity<List<Playground>> getAllPlayground(){
+        return new ResponseEntity<List<Playground>>(playgroundService.findAll(),HttpStatus.OK);
     }
-    @GetMapping("/get-team")
-    public List<Team> getTeam(){
-        return teamRepository.findAll();
+    @GetMapping("/test")
+    public String metoda(){
+        return "test";
     }
 }
