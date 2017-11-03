@@ -8,9 +8,9 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 /**
  * Created by Pawel on 03.10.2017.
  */
-@Configuration
+//@Configuration
 public class JacksonConfig {
-    @Bean
+    //@Bean
     public Jackson2ObjectMapperBuilder jacksonBuilder(){
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.featuresToEnable(SerializationFeature.WRAP_ROOT_VALUE); // enables wrapping for root elements

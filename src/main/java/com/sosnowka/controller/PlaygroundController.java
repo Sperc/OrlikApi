@@ -6,6 +6,7 @@ import com.sosnowka.model.Team;
 import com.sosnowka.repository.AppUserRepository;
 import com.sosnowka.repository.TeamRepository;
 import com.sosnowka.service.PlaygroundService;
+import com.sosnowka.test.MyObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,17 @@ public class PlaygroundController {
     ) {
         return new ResponseEntity<List<Playground>>(playgroundService.findPlaygroundByCityName(city), HttpStatus.OK);
     }
+
     @GetMapping("/get-all")
-    public ResponseEntity<List<Playground>> getAllPlayground(){
-        return new ResponseEntity<List<Playground>>(playgroundService.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<Playground>> getAllPlayground() {
+        return new ResponseEntity<List<Playground>>(playgroundService.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/test")
-    public String metoda(){
-        return "test";
+    public MyObject metoda() {
+        return new MyObject("ja");
     }
+
+
+
 }
