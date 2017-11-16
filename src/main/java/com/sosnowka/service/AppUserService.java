@@ -7,6 +7,5 @@ import com.sosnowka.model.AppUser;
  */
 public interface AppUserService {
     public AppUser findByUsername(String username);
-
     public AppUser save(AppUser appUser);
 }

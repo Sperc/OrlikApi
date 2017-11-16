@@ -28,6 +28,7 @@ public class JWTFilter extends GenericFilterBean {
         filterChain.doFilter(request, response);
     }
 
+
 //    public Authentication getAuthentication(Claims claims) {
 //        List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 //        List<String> roles = (List<String>) claims.get(AUTHORITIES_KEY);
