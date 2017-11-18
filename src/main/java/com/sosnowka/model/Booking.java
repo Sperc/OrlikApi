@@ -18,7 +18,7 @@ public class Booking {
 
     @ManyToMany
     @JsonIgnoreProperties("usersBookingSet")
-    private Set<AppUser> appUserSet;
+    private Set<Player> userSet;
 
     @Id
     @GeneratedValue
@@ -31,7 +31,8 @@ public class Booking {
     private boolean isAvailable = true;
     private Long leaderId;
 
-    public Booking(){}
+    public Booking() {
+    }
 
     public Long getId() {
         return id;
@@ -97,11 +98,11 @@ public class Booking {
         this.leaderId = leaderId;
     }
 
-    public Set<AppUser> getAppUserSet() {
-        return appUserSet;
+    public Set<Player> getUserSet() {
+        return userSet;
     }
 
-    public void setAppUserSet(Set<AppUser> appUserSet) {
-        this.appUserSet = appUserSet;
+    public void setUserSet(Set<Player> userSet) {
+        this.userSet = userSet;
     }
 }

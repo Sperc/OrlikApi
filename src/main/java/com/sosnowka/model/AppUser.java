@@ -20,105 +20,17 @@ import java.util.Set;
 @Entity
 @JsonRootName("user")
 public class AppUser implements UserDetails {
-    @ManyToMany(mappedBy = "appUserSet")
-    private Set<Booking> usersBookingSet;
-
-    @ManyToMany
-    @JsonIgnoreProperties("setOfUser")
-    private Set<Team> userTeams;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String firstName;
-    private String lastName;
-    @Column(unique = true)
-    @NotNull
-    private String username;
-    @NotNull
     private String password;
     @NotNull
-    private String email;
+    private String username;
     @ElementCollection
     private List<String> roles = new ArrayList<>();
 
-
     public AppUser() {
-    }
-
-    public Set<Team> getUserTeams() {
-        return userTeams;
-    }
-
-    public void setUserTeams(Set<Team> userTeams) {
-        this.userTeams = userTeams;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public Set<Booking> getUsersBookingSet() {
-        return usersBookingSet;
-    }
-
-    public void setUsersBookingSet(Set<Booking> usersBookingSet) {
-        this.usersBookingSet = usersBookingSet;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
     }
 
     @JsonIgnore
@@ -155,5 +67,37 @@ public class AppUser implements UserDetails {
         return authorities;
     }
 
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 }

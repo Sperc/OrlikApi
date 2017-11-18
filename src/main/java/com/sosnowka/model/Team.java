@@ -12,7 +12,7 @@ import java.util.Set;
 public class Team {
     @ManyToMany(mappedBy = "userTeams")
     @JsonIgnoreProperties("userTeams")
-    private Set<AppUser> setOfUsers;
+    private Set<Player> setOfUsers;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -21,7 +21,8 @@ public class Team {
     private Long leaderId;
     private boolean isAvaiable;
 
-    public Team(){}
+    public Team() {
+    }
 
     public Long getId() {
         return id;
@@ -55,11 +56,11 @@ public class Team {
         isAvaiable = avaiable;
     }
 
-    public Set<AppUser> getSetOfUsers() {
+    public Set<Player> getSetOfUsers() {
         return setOfUsers;
     }
 
-    public void setSetOfUsers(Set<AppUser> setOfUsers) {
+    public void setSetOfUsers(Set<Player> setOfUsers) {
         this.setOfUsers = setOfUsers;
     }
 }
