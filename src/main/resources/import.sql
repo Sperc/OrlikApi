@@ -9,4 +9,7 @@ INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available
 INSERT INTO app_user(password,username) VALUES ("haslo","psosnowka");
 INSERT INTO player(email,first_name,last_name,username) VALUES ("pawel@gmail.com","pawel","sosnowka","psosnowka");
 
-INSERT INTO team(is_avaiable,leader_id,name) VALUES (true,1,"besteam");
+INSERT INTO team(is_avaiable,leader_name,name) VALUES (true,"psosnowka","bestteam");
+INSERT INTO team(is_avaiable,leader_name,name) VALUES (true,"psosnowka","dreamteam");
+INSERT INTO player_user_teams(set_of_users_id,user_teams_id) VALUES (1,1);
+INSERT INTO player_user_teams(set_of_users_id,user_teams_id) VALUES (1,2);

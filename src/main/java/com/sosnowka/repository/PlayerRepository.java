@@ -11,4 +11,5 @@ import java.util.List;
 public interface PlayerRepository extends JpaRepository<Player,Long>{
     public Player save(Player player);
     public List<Player> findAll();
+    public Player findOneByUsername(String username);
 }

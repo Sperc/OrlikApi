@@ -18,7 +18,7 @@ public class Team {
     @Id
     private Long id;
     private String name;
-    private Long leaderId;
+    private String leaderName;
     private boolean isAvaiable;
 
     public Team() {
@@ -40,12 +40,12 @@ public class Team {
         this.name = name;
     }
 
-    public Long getLeaderId() {
-        return leaderId;
+    public String getLeaderName() {
+        return leaderName;
     }
 
-    public void setLeaderId(Long leaderId) {
-        this.leaderId = leaderId;
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
     }
 
     public boolean isAvaiable() {

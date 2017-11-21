@@ -71,4 +71,20 @@ public class Player {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Set<Booking> getUsersBookingSet() {
+        return usersBookingSet;
+    }
+
+    public void setUsersBookingSet(Set<Booking> usersBookingSet) {
+        this.usersBookingSet = usersBookingSet;
+    }
+
+    public Set<Team> getUserTeams() {
+        return userTeams;
+    }
+
+    public void setUserTeams(Set<Team> userTeams) {
+        this.userTeams = userTeams;
+    }
 }
