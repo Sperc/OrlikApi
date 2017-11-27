@@ -1,5 +1,6 @@
 package com.sosnowka.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -17,8 +18,8 @@ public class Booking {
     private Playground playground;
 
     @ManyToMany
-    @JsonIgnoreProperties("usersBookingSet")
-    private Set<Player> userSet;
+    @JsonIgnore
+    private List<Player> players;
 
     @Id
     @GeneratedValue
@@ -29,7 +30,7 @@ public class Booking {
     private double endOrder;
     private int maxNumberOfPlayer = 14;
     private boolean isAvailable = true;
-    private Long leaderId;
+    private String leaderName;
 
     public Booking() {
     }
@@ -86,23 +87,23 @@ public class Booking {
         return playground;
     }
 
+    public String getLeaderName() {
+        return leaderName;
+    }
+
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
+    }
+
     public void setPlayground(Playground playground) {
         this.playground = playground;
     }
 
-    public Long getLeaderId() {
-        return leaderId;
+    public List<Player> getPlayers() {
+        return players;
     }
 
-    public void setLeaderId(Long leaderId) {
-        this.leaderId = leaderId;
-    }
-
-    public Set<Player> getUserSet() {
-        return userSet;
-    }
-
-    public void setUserSet(Set<Player> userSet) {
-        this.userSet = userSet;
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 }

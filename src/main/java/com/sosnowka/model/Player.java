@@ -1,9 +1,11 @@
 package com.sosnowka.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,9 +13,9 @@ import java.util.Set;
  */
 @Entity
 public class Player {
-
-    @ManyToMany(mappedBy = "userSet")
-    private Set<Booking> usersBookingSet;
+    @ManyToMany(mappedBy = "players")
+    @JsonIgnore
+    private List<Booking> bookingList;
 
     @ManyToMany
     @JsonIgnoreProperties("setOfUser")
@@ -31,6 +33,9 @@ public class Player {
     private String username;
     @NotNull
     private String email;
+
+    public Player() {
+    }
 
     public Long getId() {
         return id;
@@ -72,12 +77,12 @@ public class Player {
         this.email = email;
     }
 
-    public Set<Booking> getUsersBookingSet() {
-        return usersBookingSet;
+    public List<Booking> getBookingList() {
+        return bookingList;
     }
 
-    public void setUsersBookingSet(Set<Booking> usersBookingSet) {
-        this.usersBookingSet = usersBookingSet;
+    public void setBookingList(List<Booking> bookingList) {
+        this.bookingList = bookingList;
     }
 
     public Set<Team> getUserTeams() {
