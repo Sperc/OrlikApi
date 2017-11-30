@@ -3,8 +3,8 @@ INSERT INTO playground(name,city,street_name,street_number,longitude,latitude) V
 INSERT INTO playground(name,city,street_name,street_number,longitude,latitude) VALUES ("orlik","Warszawa","Glowna","12",1.1,1.1);
 
 INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-11-13",12.10,14.30,14,true,"psosnowka",1);
-INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-11-12",12.10,14.30,14,true,"psosnowka",1);
-INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-11-29",12.10,14.30,14,true,"psosnowka",1);
+INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-12-12",12.10,14.30,14,true,"psosnowka",1);
+INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-12-29",12.10,14.30,14,true,"psosnowka",1);
 
 INSERT INTO app_user(password,username) VALUES ("haslo","psosnowka");
 INSERT INTO player(email,first_name,last_name,username) VALUES ("pawel@gmail.com","pawel","sosnowka","psosnowka");

@@ -45,4 +45,9 @@ public class PlayerServiceImpl implements PlayerService {
         }
         return list;
     }
+
+    @Override
+    public Player findOneByUsername(String username) {
+        return playerRepository.findOneByUsername(username);
+    }
 }

@@ -17,4 +17,5 @@ public interface PlayerService {
     public Player save(Player player);
     public List<Player> findAll();
     public List<Booking> getUserReservation(String username);
+    public Player findOneByUsername(String username);
 }

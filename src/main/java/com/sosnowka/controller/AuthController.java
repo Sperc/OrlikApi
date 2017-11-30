@@ -29,28 +29,21 @@ public class AuthController {
     private PlayerService playerService;
 
     @PostMapping("/login")
-    public ResponseEntity<AppUser> login(@RequestBody AppUser appUser,
+    public ResponseEntity<Player> login(@RequestBody AppUser appUser,
                                          HttpServletResponse response) throws IOException {
         String password = appUser.getPassword();
         String username = appUser.getUsername();
         AppUser user = appUserService.findByUsername(username);
+
         if (user != null && user.getPassword().equals(password)) {
             TokenAuthenticationService.addAuthentication(response, appUser.getUsername());
-            return new ResponseEntity<AppUser>(user, HttpStatus.OK);
+            Player player = playerService.findOneByUsername(username);
+            return new ResponseEntity<Player>(player, HttpStatus.OK);
         } else {
-            return new ResponseEntity<AppUser>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
-    @RequestMapping(value = "/register2", method = RequestMethod.POST)
-    public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
-        if (appUserService.findByUsername(appUser.getUsername()) != null) {
-            new ResponseEntity<AppUser>(appUser,HttpStatus.BAD_REQUEST);
-        }
-        List<String> roles = new ArrayList<>();
-        roles.add("USER");
-        appUser.setRoles(roles);
-        return new ResponseEntity<AppUser>(appUserService.save(appUser), HttpStatus.CREATED);
-    }
+
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public ResponseEntity<Player> createPlater(@RequestBody RegisterAccount registrationUser){
         AppUser appUser = registrationUser.getAppUser();
