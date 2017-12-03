@@ -1,6 +1,14 @@
 
-INSERT INTO playground(name,city,street_name,street_number,longitude,latitude) VALUES ("orlik","Lublin","Tumidajskiego","12",1.1,1.1);
-INSERT INTO playground(name,city,street_name,street_number,longitude,latitude) VALUES ("orlik","Warszawa","Glowna","12",1.1,1.1);
+INSERT INTO city(name)VALUES ("Lublin");
+INSERT INTO city(name)VALUES ("Warszawa");
+INSERT INTO city(name)VALUES ("Wrocław");
+INSERT INTO city(name)VALUES ("Zdziłowice");
+INSERT INTO city(name)VALUES ("Opole");
+INSERT INTO city(name)VALUES ("Olsztyn");
+INSERT INTO city(name)VALUES ("Wrocławek");
+
+INSERT INTO playground(name,street_name,street_number,longitude,latitude,city_id) VALUES ("orlik","Tumidajskiego","12",1.1,1.1,2);
+INSERT INTO playground(name,street_name,street_number,longitude,latitude,city_id) VALUES ("orlik","Glowna","12",1.1,1.1,1);
 
 INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-11-13",12.10,14.30,14,true,"psosnowka",1);
 INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-12-12",12.10,14.30,14,true,"psosnowka",1);

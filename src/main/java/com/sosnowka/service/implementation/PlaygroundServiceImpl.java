@@ -1,6 +1,8 @@
 package com.sosnowka.service.implementation;
 
+import com.sosnowka.model.City;
 import com.sosnowka.model.Playground;
+import com.sosnowka.repository.CityRepository;
 import com.sosnowka.repository.PlaygroundRepository;
 import com.sosnowka.service.PlaygroundService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import java.util.List;
 public class PlaygroundServiceImpl implements PlaygroundService {
     @Autowired
     PlaygroundRepository playgroundRepository;
+    @Autowired
+    CityRepository cityRepository;
 
     @Override
     public Playground save(Playground playground) {
@@ -38,7 +42,9 @@ public class PlaygroundServiceImpl implements PlaygroundService {
     }
 
     @Override
-    public List<Playground> findPlaygroundByCityName(String cityName) {
-        return playgroundRepository.findAllByCity(cityName);
+    public List<Playground> findAllByCityName(String city) {
+        City c = cityRepository.getByName(city);
+        return c.getPlaygroundList();
     }
+
 }

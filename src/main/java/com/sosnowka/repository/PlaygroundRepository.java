@@ -20,6 +20,5 @@ public interface PlaygroundRepository extends JpaRepository<Playground,Long>{
 
     public List<Playground> findAllByName(String name);
 
-    public List<Playground> findAllByCity(String city);
 
 }

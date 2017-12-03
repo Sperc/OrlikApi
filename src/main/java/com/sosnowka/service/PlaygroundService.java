@@ -12,5 +12,5 @@ public interface PlaygroundService {
     public List<Playground> findAll();
     public Playground findOneById(long id);
     public List<Playground> findByName(String name);
-    public List<Playground> findPlaygroundByCityName(String cityName);
+    public List<Playground> findAllByCityName(String city);
 }

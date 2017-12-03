@@ -22,14 +22,16 @@ public class Playground {
     @GeneratedValue
     private Long id;
     private String name;
-    private String city;
     private String streetName;
     private String streetNumber;
     private double longitude;
     private double latitude;
+    @ManyToOne
+    private City city;
 
     public Playground() {
     }
+
 
     public Set<Booking> getBookingSet() {
         return bookingSet;
@@ -53,14 +55,6 @@ public class Playground {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getStreetName() {
@@ -93,5 +87,13 @@ public class Playground {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public City getCity() {
+        return city;
     }
 }

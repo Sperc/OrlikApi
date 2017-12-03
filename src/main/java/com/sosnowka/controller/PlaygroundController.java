@@ -24,13 +24,6 @@ public class PlaygroundController {
     @Autowired
     PlaygroundService playgroundService;
 
-    @GetMapping("/get-by-city/{city}")
-    public ResponseEntity<List<Playground>> findPlaygroundByCity(
-            @PathVariable("city") String city
-    ) {
-        return new ResponseEntity<List<Playground>>(playgroundService.findPlaygroundByCityName(city), HttpStatus.OK);
-    }
-
     @GetMapping("/get-all")
     public ResponseEntity<List<Playground>> getAllPlayground() {
         return new ResponseEntity<List<Playground>>(playgroundService.findAll(), HttpStatus.OK);
@@ -41,6 +34,9 @@ public class PlaygroundController {
         return new MyObject("ja");
     }
 
-
+    @GetMapping("/get")
+    public List<Playground> getAllPlaygroundsByName(){
+        return playgroundService.findAllByCityName("Lublin");
+    }
 
 }
