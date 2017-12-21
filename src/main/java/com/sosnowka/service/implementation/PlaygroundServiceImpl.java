@@ -36,15 +36,20 @@ public class PlaygroundServiceImpl implements PlaygroundService {
         return playgroundRepository.findOne(id);
     }
 
-    @Override
-    public List<Playground> findByName(String name) {
-        return playgroundRepository.findAllByName(name);
-    }
 
     @Override
     public List<Playground> findAllByCityName(String city) {
-        City c = cityRepository.getByName(city);
+        if (city == null) {
+            throw new IllegalArgumentException();
+        }
+        City c = cityRepository.findByName(city);
         return c.getPlaygroundList();
+    }
+
+    @Override
+    public List<Playground> findAllByCityNameAndCategory(String city, String category) {
+        if (city == null || category == null) throw new IllegalArgumentException();
+        return playgroundRepository.findAllByCity_NameAndCategory(city,category);
     }
 
 }

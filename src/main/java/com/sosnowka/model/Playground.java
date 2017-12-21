@@ -26,6 +26,9 @@ public class Playground {
     private String streetNumber;
     private double longitude;
     private double latitude;
+    private String description;
+    private String category;
+
     @ManyToOne
     private City city;
 
@@ -39,6 +42,22 @@ public class Playground {
 
     public void setBookingSet(Set<Booking> bookingSet) {
         this.bookingSet = bookingSet;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Long getId() {

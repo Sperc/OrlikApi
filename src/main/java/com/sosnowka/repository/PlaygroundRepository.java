@@ -18,7 +18,5 @@ public interface PlaygroundRepository extends JpaRepository<Playground,Long>{
     @Override
     public Playground getOne(Long aLong);
 
-    public List<Playground> findAllByName(String name);
-
-
+    public List<Playground> findAllByCity_NameAndCategory(String cityName,String category);
 }

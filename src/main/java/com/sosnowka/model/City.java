@@ -17,11 +17,29 @@ public class City {
     @Id
     private Long id;
     private String name;
+    private double latitude;
+    private double longitude;
     @OneToMany(mappedBy = "city")
     @JsonIgnore
     private List<Playground> playgroundList;
 
     public City() {
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public Long getId() {

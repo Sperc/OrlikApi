@@ -11,6 +11,6 @@ public interface PlaygroundService {
     public Playground save(Playground playground);
     public List<Playground> findAll();
     public Playground findOneById(long id);
-    public List<Playground> findByName(String name);
     public List<Playground> findAllByCityName(String city);
+    public List<Playground> findAllByCityNameAndCategory(String city,String category);
 }
