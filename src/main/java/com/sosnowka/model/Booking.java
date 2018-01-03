@@ -18,7 +18,7 @@ public class Booking {
     private Playground playground;
 
     @ManyToMany
-    @JsonIgnore
+
     private List<Player> players;
 
     @Id
@@ -26,8 +26,11 @@ public class Booking {
     private Long id;
     //yyyy-MM-dd
     private String date;
-    private double startOrder;
-    private double endOrder;
+    private String endDate;
+    private int startOrderHour;
+    private int startOrderMinutes;
+    private int endOrderHour;
+    private int endOrderMinutes;
     private int maxNumberOfPlayer = 14;
     private boolean isAvailable = true;
     private String leaderName;
@@ -47,24 +50,48 @@ public class Booking {
         return date;
     }
 
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
 
-    public double getStartOrder() {
-        return startOrder;
+    public int getStartOrderHour() {
+        return startOrderHour;
     }
 
-    public void setStartOrder(double startOrder) {
-        this.startOrder = startOrder;
+    public void setStartOrderHour(int startOrderHour) {
+        this.startOrderHour = startOrderHour;
     }
 
-    public double getEndOrder() {
-        return endOrder;
+    public int getStartOrderMinutes() {
+        return startOrderMinutes;
     }
 
-    public void setEndOrder(double endOrder) {
-        this.endOrder = endOrder;
+    public void setStartOrderMinutes(int startOrderMinutes) {
+        this.startOrderMinutes = startOrderMinutes;
+    }
+
+    public int getEndOrderHour() {
+        return endOrderHour;
+    }
+
+    public void setEndOrderHour(int endOrderHour) {
+        this.endOrderHour = endOrderHour;
+    }
+
+    public int getEndOrderMinutes() {
+        return endOrderMinutes;
+    }
+
+    public void setEndOrderMinutes(int endOrderMinutes) {
+        this.endOrderMinutes = endOrderMinutes;
     }
 
     public int getMaxNumberOfPlayer() {

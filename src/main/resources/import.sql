@@ -9,10 +9,13 @@ INSERT INTO city(name,latitude,longitude)VALUES ("Wrocławek",52.64817,19.0678);
 
 INSERT INTO playground(name,category,description,street_name,street_number,latitude,longitude,city_id) VALUES ("orlik","Piłka nożna","Tatary","Tumidajskiego","12",51.259284, 22.589705,1);
 INSERT INTO playground(name,category,description,street_name,street_number,latitude,longitude,city_id) VALUES ("orlik","Piłka nożna","Podzamcze","Aleje Racławickie","7",51.250520, 22.540410,1);
+INSERT INTO playground(name,category,description,street_name,street_number,latitude,longitude,city_id) VALUES ("hala sportowa","Koszykówka","Centrum","Marii Skłodowskiej-Curie","17",51.247235, 22.544330,1);
+INSERT INTO playground(name,category,description,street_name,street_number,latitude,longitude,city_id) VALUES ("hala sportowa","Siatkówka","Centrum","Tomasza Zana","10",51.237666, 22.551182,1);
 
-INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-11-13",12.10,14.30,14,true,"psosnowka",1);
-INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-12-12",12.10,14.30,14,true,"psosnowka",1);
-INSERT INTO booking(date,start_order,end_order,max_number_of_player,is_available,leader_name,playground) VALUES ("2017-12-29",12.10,14.30,14,true,"psosnowka",1);
+INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-01-13","2018-01-13",12,10,14,30,14,true,"psosnowka",1);
+INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-01-12","2018-01-12",11,40,13,30,14,true,"psosnowka",1);
+INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-01-11","2018-01-11",10,0,12,30,14,true,"psosnowka",1);
+
 
 INSERT INTO app_user(password,username) VALUES ("haslo","psosnowka");
 INSERT INTO player(email,first_name,last_name,username) VALUES ("pawel@gmail.com","pawel","sosnowka","psosnowka");
