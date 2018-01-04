@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +34,8 @@ public class Player {
     private String username;
     @NotNull
     private String email;
+    //yyyy-mm-DD
+    private String birthDate;
 
     public Player() {
     }

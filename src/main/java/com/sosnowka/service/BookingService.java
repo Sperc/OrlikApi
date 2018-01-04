@@ -11,5 +11,6 @@ public interface BookingService {
     public List<Booking> findAll();
     public List<Booking> getAllByDate(String date);
     public Booking save(Booking booking);
+    public Booking getById(Long id);
 
 }
