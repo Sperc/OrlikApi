@@ -1,6 +1,7 @@
 package com.sosnowka.controller;
 
 import com.sosnowka.model.Booking;
+import com.sosnowka.model.Player;
 import com.sosnowka.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -30,5 +31,11 @@ public class PlayerController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
         return new ResponseEntity<List<Booking>>(playerService.getUserReservation(name), HttpStatus.OK);
+    }
+    @GetMapping("/get")
+    public HttpEntity<Player> getLogInPlayer(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        return new ResponseEntity<Player>(playerService.findOneByUsername(name),HttpStatus.OK);
     }
 }

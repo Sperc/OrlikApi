@@ -19,4 +19,6 @@ public interface PlaygroundRepository extends JpaRepository<Playground,Long>{
     public Playground getOne(Long aLong);
 
     public List<Playground> findAllByCity_NameAndCategory(String cityName,String category);
+
+    public Playground getById(Long id);
 }

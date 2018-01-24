@@ -1,6 +1,10 @@
 package com.sosnowka.service;
 
+import com.sosnowka.exeption.PlayerNotFoundExeption;
 import com.sosnowka.model.Booking;
+import com.sosnowka.model.Player;
+import com.sosnowka.model.Playground;
+import com.sosnowka.model.Time;
 
 import java.util.List;
 
@@ -12,5 +16,8 @@ public interface BookingService {
     public List<Booking> getAllByDate(String date);
     public Booking save(Booking booking);
     public Booking getById(Long id);
+    public List<Player> removePlayerFromBooking(Long bookingId,String username) throws PlayerNotFoundExeption;
+    public List<Booking> getBookingByPlaygroundId(Long id) throws PlayerNotFoundExeption;
+    public List<Booking>getSortedBookingList(String date,Playground playground);
 
 }

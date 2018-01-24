@@ -1,12 +1,22 @@
 package com.sosnowka.service.implementation;
 
+import com.sosnowka.exeption.PlayerNotFoundExeption;
 import com.sosnowka.model.Booking;
+import com.sosnowka.model.Player;
+import com.sosnowka.model.Playground;
+import com.sosnowka.model.Time;
 import com.sosnowka.repository.BookingRepository;
+import com.sosnowka.repository.PlayerRepository;
+import com.sosnowka.repository.PlaygroundRepository;
 import com.sosnowka.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Pawel on 28.10.2017.
@@ -15,6 +25,10 @@ import java.util.List;
 public class BookingServiceImpl implements BookingService {
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
+    private PlaygroundRepository playgroundRepository;
 
     @Override
     public List<Booking> findAll() {
@@ -35,4 +49,34 @@ public class BookingServiceImpl implements BookingService {
     public Booking getById(Long id) {
         return bookingRepository.getById(id);
     }
+
+    @Override
+    public List<Player> removePlayerFromBooking(Long bookingId, String username) throws PlayerNotFoundExeption {
+        Booking booking = bookingRepository.getById(bookingId);
+        Player player = playerRepository.findOneByUsername(username);
+        if(player==null)
+            throw new PlayerNotFoundExeption("player not found");
+        booking.getPlayers().remove(player);
+        bookingRepository.save(booking);
+        return booking.getPlayers();
+
+    }
+
+    @Override
+    public List<Booking> getBookingByPlaygroundId(Long id) throws PlayerNotFoundExeption {
+        Playground playground = playgroundRepository.getById(id);
+        if(playground==null) throw new PlayerNotFoundExeption("Playground not found");
+        ArrayList<Booking> arrayList = new ArrayList<>();
+        arrayList.addAll(playground.getBookingSet());
+        return arrayList;
+    }
+
+    @Override
+    public List<Booking> getSortedBookingList(String date,Playground playground) {
+        return bookingRepository.getAllByPlaygroundAndDate(playground,date)
+                .stream()
+                .sorted(Comparator.comparing(Booking::getStartOrderHour).thenComparing(Booking::getStartOrderMinutes))
+                .collect(Collectors.toList());
+    }
+
 }
