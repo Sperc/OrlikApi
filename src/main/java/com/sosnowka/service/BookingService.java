@@ -19,5 +19,6 @@ public interface BookingService {
     public List<Player> removePlayerFromBooking(Long bookingId,String username) throws PlayerNotFoundExeption;
     public List<Booking> getBookingByPlaygroundId(Long id) throws PlayerNotFoundExeption;
     public List<Booking>getSortedBookingList(String date,Playground playground);
+    void createBooking(Booking b);
 
 }

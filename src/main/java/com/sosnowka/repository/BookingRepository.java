@@ -14,4 +14,6 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
     public Booking getById(Long id);
     public Booking removeById(Long id);
     List<Booking> getAllByPlaygroundAndDate(Playground p,String date);
+    @Override
+    <S extends Booking> S save(S s);
 }

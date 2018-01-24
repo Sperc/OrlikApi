@@ -87,6 +87,11 @@ public class BookingController {
         }
         return new ResponseEntity<List<Booking>>(bookingService.getSortedBookingList(date, playground), HttpStatus.OK);
     }
+    @PostMapping("/add")
+    public ResponseEntity addBooking(@RequestBody Booking booking){
+        bookingService.createBooking(booking);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 
 }

@@ -79,4 +79,13 @@ public class BookingServiceImpl implements BookingService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void createBooking(Booking b) {
+        List<Player> players  = new ArrayList<>();
+        Player leader = playerRepository.findOneByUsername(b.getLeaderName());
+        players.add(leader);
+        b.setPlayers(players);
+        bookingRepository.save(b);
+    }
+
 }
