@@ -1,4 +1,4 @@
-package com.sosnowka.model;
+package com.sosnowka.model.wraper;
 
 /**
  * Created by Pawel on 16.01.2018.

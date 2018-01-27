@@ -4,7 +4,6 @@ import com.sosnowka.exeption.PlayerNotFoundExeption;
 import com.sosnowka.model.Booking;
 import com.sosnowka.model.Player;
 import com.sosnowka.model.Playground;
-import com.sosnowka.model.Time;
 import com.sosnowka.repository.BookingRepository;
 import com.sosnowka.repository.PlayerRepository;
 import com.sosnowka.repository.PlaygroundRepository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**

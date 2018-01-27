@@ -30,7 +30,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Player> login(@RequestBody AppUser appUser,
-                                         HttpServletResponse response) throws IOException {
+                                        HttpServletResponse response) throws IOException {
         String password = appUser.getPassword();
         String username = appUser.getUsername();
         AppUser user = appUserService.findByUsername(username);
@@ -38,24 +38,26 @@ public class AuthController {
         if (user != null && user.getPassword().equals(password)) {
             TokenAuthenticationService.addAuthentication(response, appUser.getUsername());
             Player player = playerService.findOneByUsername(username);
+            if(player==null){
+//                player = new Player();
+                return new ResponseEntity(HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<Player>(player, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ResponseEntity<Player> createPlater(@RequestBody RegisterAccount registrationUser){
-        AppUser appUser = registrationUser.getAppUser();
-        Player player = registrationUser.getPlayer();
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<AppUser> createPlater(@RequestBody AppUser appUser) {
+
         if (appUserService.findByUsername(appUser.getUsername()) != null) {
-            new ResponseEntity<AppUser>(appUser,HttpStatus.BAD_REQUEST);
+            new ResponseEntity<AppUser>(appUser, HttpStatus.BAD_REQUEST);
         }
         List<String> roles = new ArrayList<>();
         roles.add("USER");
         appUser.setRoles(roles);
-        appUserService.save(appUser);
-        return new ResponseEntity<Player>(playerService.save(player), HttpStatus.CREATED);
+        return new ResponseEntity<AppUser>(appUserService.save(appUser), HttpStatus.OK);
     }
 
 

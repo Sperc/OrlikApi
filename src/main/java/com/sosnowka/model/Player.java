@@ -22,7 +22,6 @@ public class Player {
     @JsonIgnoreProperties("setOfUser")
     private Set<Team> userTeams;
 
-
     @Id
     @GeneratedValue
     private Long id;
@@ -32,12 +31,18 @@ public class Player {
     @Column(unique = true)
     @NotNull
     private String username;
-    @NotNull
-    private String email;
     //yyyy-mm-DD
     private String birthDate;
 
     public Player() {
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     public Long getId() {
@@ -70,14 +75,6 @@ public class Player {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public List<Booking> getBookingList() {

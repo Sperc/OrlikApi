@@ -27,6 +27,7 @@ public class AppUser implements UserDetails {
     private String password;
     @NotNull
     private String username;
+
     @ElementCollection
     private List<String> roles = new ArrayList<>();
 
