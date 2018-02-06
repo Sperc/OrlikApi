@@ -12,8 +12,8 @@ INSERT INTO playground(name,category,description,street_name,street_number,latit
 INSERT INTO playground(name,category,description,street_name,street_number,latitude,longitude,city_id) VALUES ("hala sportowa","Koszykówka","Centrum","Marii Skłodowskiej-Curie","17",51.247235, 22.544330,1);
 INSERT INTO playground(name,category,description,street_name,street_number,latitude,longitude,city_id) VALUES ("hala sportowa","Siatkówka","Centrum","Tomasza Zana","10",51.237666, 22.551182,1);
 
-INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-01-22","2018-01-22",16,15,17,30,14,true,"pawel@gmail.com",1);
-INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-01-23","2018-01-23",18,30,19,30,14,true,"pawel@gmail.com",1);
+INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-02-04","2018-02-04",14,30,19,30,14,true,"pawel@gmail.com",1);
+INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-02-08","2018-02-08",14,30,19,30,14,true,"pawel@gmail.com",1);
 
 INSERT INTO app_user(password,username) VALUES ("haslo","pawel@gmail.com");
 INSERT INTO app_user(password,username) VALUES ("test","test@gmail.com");

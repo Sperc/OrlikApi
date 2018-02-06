@@ -34,7 +34,17 @@ public class Player {
     //yyyy-mm-DD
     private String birthDate;
 
+    private String image;
+
     public Player() {
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getBirthDate() {

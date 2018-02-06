@@ -9,13 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Pawel on 27.11.2017.
@@ -25,6 +21,16 @@ import java.util.Set;
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
+
+    @PostMapping("/add")
+    private HttpEntity addPlayer(@RequestBody Player player){
+        if(playerService.findOneByUsername(player.getUsername())!=null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        player.setBookingList(new ArrayList<>());
+        player.setUserTeams(new HashSet<>());
+        playerService.save(player);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping("/reservation")
     public HttpEntity<List<Booking>> getUserReservation() {

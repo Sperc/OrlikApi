@@ -52,7 +52,7 @@ public class AuthController {
     public ResponseEntity<AppUser> createPlater(@RequestBody AppUser appUser) {
 
         if (appUserService.findByUsername(appUser.getUsername()) != null) {
-            new ResponseEntity<AppUser>(appUser, HttpStatus.BAD_REQUEST);
+           return new ResponseEntity<AppUser>(appUser, HttpStatus.BAD_REQUEST);
         }
         List<String> roles = new ArrayList<>();
         roles.add("USER");
