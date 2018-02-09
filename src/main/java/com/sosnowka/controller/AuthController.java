@@ -9,6 +9,7 @@ import com.sosnowka.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private PlayerService playerService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<Player> login(@RequestBody AppUser appUser,
@@ -57,6 +61,7 @@ public class AuthController {
         List<String> roles = new ArrayList<>();
         roles.add("USER");
         appUser.setRoles(roles);
+        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
         return new ResponseEntity<AppUser>(appUserService.save(appUser), HttpStatus.OK);
     }
 
