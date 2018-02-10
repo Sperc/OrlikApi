@@ -42,6 +42,10 @@ public class PlayerController {
     public HttpEntity<Player> getLogInPlayer(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
-        return new ResponseEntity<Player>(playerService.findOneByUsername(name),HttpStatus.OK);
+        Player p = playerService.findOneByUsername(name);
+        if(p==null){
+            return new ResponseEntity<Player>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Player>(p,HttpStatus.OK);
     }
 }

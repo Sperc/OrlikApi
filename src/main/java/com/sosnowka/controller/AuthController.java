@@ -2,8 +2,6 @@ package com.sosnowka.controller;
 
 import com.sosnowka.model.AppUser;
 import com.sosnowka.model.Player;
-import com.sosnowka.model.wraper.RegisterAccount;
-import com.sosnowka.security.TokenAuthenticationService;
 import com.sosnowka.service.AppUserService;
 import com.sosnowka.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,25 +30,25 @@ public class AuthController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @PostMapping("/login")
-    public ResponseEntity<Player> login(@RequestBody AppUser appUser,
-                                        HttpServletResponse response) throws IOException {
-        String password = appUser.getPassword();
-        String username = appUser.getUsername();
-        AppUser user = appUserService.findByUsername(username);
-
-        if (user != null && user.getPassword().equals(password)) {
-            TokenAuthenticationService.addAuthentication(response, appUser.getUsername());
-            Player player = playerService.findOneByUsername(username);
-            if(player==null){
-//                player = new Player();
-                return new ResponseEntity(HttpStatus.NOT_FOUND);
-            }
-            return new ResponseEntity<Player>(player, HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-        }
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<Player> login(@RequestBody AppUser appUser,
+//                                        HttpServletResponse response) throws IOException {
+//        String password = appUser.getPassword();
+//        String username = appUser.getUsername();
+//        AppUser user = appUserService.findByUsername(username);
+//
+//        if (user != null && user.getPassword().equals(password)) {
+//            TokenAuthenticationService.addAuthentication(response, appUser.getUsername());
+//            Player player = playerService.findOneByUsername(username);
+//            if(player==null){
+////                player = new Player();
+//                return new ResponseEntity(HttpStatus.NOT_FOUND);
+//            }
+//            return new ResponseEntity<Player>(player, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+//        }
+//    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<AppUser> createPlater(@RequestBody AppUser appUser) {
@@ -64,6 +62,13 @@ public class AuthController {
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
         return new ResponseEntity<AppUser>(appUserService.save(appUser), HttpStatus.OK);
     }
+//
+//    @PostMapping("/login")
+//    public void signUp(@RequestBody AppUser user) {
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        appUserService.save(user);
+//    }
+
 
 
 }

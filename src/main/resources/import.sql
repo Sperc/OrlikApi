@@ -15,10 +15,9 @@ INSERT INTO playground(name,category,description,street_name,street_number,latit
 INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-02-04","2018-02-04",14,30,19,30,14,true,"pawel@gmail.com",1);
 INSERT INTO booking(date,end_date,start_order_hour,start_order_minutes,end_order_hour,end_order_minutes,max_number_of_player,is_available,leader_name,playground) VALUES ("2018-02-08","2018-02-08",14,30,19,30,14,true,"pawel@gmail.com",1);
 
-INSERT INTO image(format,img) VALUES ("jpeg",)
 
-INSERT INTO app_user(password,username) VALUES ("haslo","pawel@gmail.com");
-INSERT INTO app_user(password,username) VALUES ("test","test@gmail.com");
+INSERT INTO app_user(password,username) VALUES ("$2a$10$aHosxWuAW9UpmDly1nlirOMf9ewk5hP9QuxU3B6T/eiHC9OtTYiAa","pawel@gmail.com");
+INSERT INTO app_user(password,username) VALUES ("$2a$10$aHosxWuAW9UpmDly1nlirOMf9ewk5hP9QuxU3B6T/eiHC9OtTYiAa","test@gmail.com");
 INSERT INTO player(birth_date,first_name,last_name,username) VALUES ("1995-05-11","pawel","sosnowka","pawel@gmail.com");
 #INSERT INTO player(birth_date,first_name,last_name,username) VALUES ("1995-05-11","pawel","sosnowka","test@gmail.com");
 
