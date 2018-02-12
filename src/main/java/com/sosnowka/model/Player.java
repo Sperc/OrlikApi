@@ -33,6 +33,7 @@ public class Player {
     private String username;
     //yyyy-mm-DD
     private String birthDate;
+    private String image;
 
 
     public Player() {

@@ -24,6 +24,9 @@ public class PlayerController {
 
     @PostMapping("/add")
     private HttpEntity addPlayer(@RequestBody Player player){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        player.setUsername(name);
         if(playerService.findOneByUsername(player.getUsername())!=null)
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         player.setBookingList(new ArrayList<>());
