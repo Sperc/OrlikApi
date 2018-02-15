@@ -3,6 +3,7 @@ package com.sosnowka.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.sosnowka.model.wraper.Time;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,6 +29,12 @@ public class Playground {
     private double latitude;
     private String description;
     private String category;
+    private int startHour;
+    private int startMinutes;
+    private int endHour;
+    private int endMinutes;
+    private int phoneNumber;
+    private String photo;
 
     @ManyToOne
     private City city;
@@ -35,6 +42,54 @@ public class Playground {
     public Playground() {
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getStartHour() {
+        return startHour;
+    }
+
+    public void setStartHour(int startHour) {
+        this.startHour = startHour;
+    }
+
+    public int getStartMinutes() {
+        return startMinutes;
+    }
+
+    public void setStartMinutes(int startMinutes) {
+        this.startMinutes = startMinutes;
+    }
+
+    public int getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(int endHour) {
+        this.endHour = endHour;
+    }
+
+    public int getEndMinutes() {
+        return endMinutes;
+    }
+
+    public void setEndMinutes(int endMinutes) {
+        this.endMinutes = endMinutes;
+    }
 
     public Set<Booking> getBookingSet() {
         return bookingSet;
