@@ -34,6 +34,7 @@ public class Playground {
     private int endHour;
     private int endMinutes;
     private int phoneNumber;
+    @Column(columnDefinition = "LONGTEXT")
     private String photo;
 
     @ManyToOne
