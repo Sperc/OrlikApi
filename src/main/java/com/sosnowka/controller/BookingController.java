@@ -39,9 +39,9 @@ public class BookingController {
         return new ResponseEntity<Booking>(bookingService.getById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/add-user/{username}")
-    public HttpEntity<List<Player>> addPlayerToBooking(@PathVariable("id") Long id,
-                                                       @PathVariable("username") String username) {
+    @GetMapping("/add-user")
+    public HttpEntity<List<Player>> addPlayerToBooking(@RequestParam Long id,
+                                                       @RequestParam String username) {
         Booking b = bookingService.getById(id);
         Player player = playerService.findOneByUsername(username);
         if (b.getPlayers().contains(player) || player == null) {
@@ -57,9 +57,9 @@ public class BookingController {
         return new ResponseEntity(b.getPlayers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/remove-user/{username}")
-    public HttpEntity<List<Player>> removePlayerFromBooking(@PathVariable("id") Long id,
-                                                            @PathVariable("username") String username) {
+    @GetMapping("/remove-user")
+    public HttpEntity<List<Player>> removePlayerFromBooking(@RequestParam Long id,
+                                                            @RequestParam String username) {
         try {
             return new ResponseEntity<List<Player>>(bookingService.removePlayerFromBooking(id, username), HttpStatus.OK);
         } catch (PlayerNotFoundExeption playerNotFoundExeption) {

@@ -51,4 +51,12 @@ public class PlayerController {
         }
         return new ResponseEntity<Player>(p,HttpStatus.OK);
     }
+    @GetMapping("/get-by-username")
+    public HttpEntity<Player> getPlayerByUsername(@RequestParam String username){
+        Player player = playerService.findOneByUsername(username);
+        if(player==null){
+            return new ResponseEntity<Player>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Player>(player,HttpStatus.OK);
+    }
 }

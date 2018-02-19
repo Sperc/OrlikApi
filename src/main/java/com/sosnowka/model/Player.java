@@ -34,7 +34,7 @@ public class Player {
     private String username;
     //yyyy-mm-DD
     private String birthDate;
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
 
     public Player() {
