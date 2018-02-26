@@ -34,8 +34,9 @@ public class Playground {
     private int endHour;
     private int endMinutes;
     private int phoneNumber;
-    @Column(columnDefinition = "LONGTEXT")
-    private String photo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Picture picture;
 
     @ManyToOne
     private City city;
@@ -43,14 +44,13 @@ public class Playground {
     public Playground() {
     }
 
-    public String getPhoto() {
-        return photo;
+    public Picture getPicture() {
+        return picture;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
-
 
     public int getPhoneNumber() {
         return phoneNumber;

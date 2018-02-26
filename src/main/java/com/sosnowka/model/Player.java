@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Blob;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -34,18 +32,18 @@ public class Player {
     private String username;
     //yyyy-mm-DD
     private String birthDate;
-    @Column(columnDefinition = "LONGTEXT")
-    private String image;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Picture picture;
 
     public Player() {
     }
 
-    public String getImage() {
-        return image;
+    public Picture getPicture() {
+        return picture;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     public String getBirthDate() {

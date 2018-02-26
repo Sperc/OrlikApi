@@ -11,6 +11,10 @@ public class BookingApplication {
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	@Bean
+	public String getDirecotryPath(){
+		return "./src/main/resources/static/";
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookingApplication.class, args);
