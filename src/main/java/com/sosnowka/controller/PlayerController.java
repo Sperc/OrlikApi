@@ -83,4 +83,18 @@ public class PlayerController {
         }
         return new ResponseEntity<Player>(player, HttpStatus.OK);
     }
+
+    @PutMapping("/edit")
+    public HttpEntity editPlayer(@RequestBody Player player) {
+        if (player == null) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        Player acualPlayer = playerService.findOneByUsername(name);
+        acualPlayer.setBirthDate(player.getBirthDate());
+        acualPlayer.setFirstName(player.getFirstName());
+        acualPlayer.setLastName(player.getLastName());
+        acualPlayer.setPhoneNumber(player.getPhoneNumber());
+        playerService.save(acualPlayer);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

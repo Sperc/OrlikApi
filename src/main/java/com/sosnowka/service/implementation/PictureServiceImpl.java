@@ -28,6 +28,7 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public Picture storagePhoto(byte[] bytes, String username) {
         BufferedImage image = null;
+       //LocalDateTime
         String fileName = String.valueOf(new Date().getTime()) + ".jpg";
         String filePath = getDirectoryPicturePath + fileName;
 

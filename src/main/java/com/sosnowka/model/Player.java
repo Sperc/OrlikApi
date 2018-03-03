@@ -32,10 +32,19 @@ public class Player {
     private String username;
     //yyyy-mm-DD
     private String birthDate;
+    private String phoneNumber;
     @OneToOne(cascade = CascadeType.ALL)
     private Picture picture;
 
     public Player() {
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Picture getPicture() {
