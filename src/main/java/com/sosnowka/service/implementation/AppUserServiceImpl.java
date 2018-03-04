@@ -27,4 +27,11 @@ public class AppUserServiceImpl implements AppUserService {
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
         return appUserRepository.save(appUser);
     }
+
+    @Override
+    public void delete(AppUser appUser) {
+        appUserRepository.delete(appUser);
+    }
+
+
 }

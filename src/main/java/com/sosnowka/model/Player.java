@@ -27,6 +27,7 @@ public class Player {
     @NotNull
     private String firstName;
     private String lastName;
+
     @Column(unique = true)
     @NotNull
     private String username;

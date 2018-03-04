@@ -2,12 +2,21 @@ package com.sosnowka.controller;
 
 import com.sosnowka.model.AppUser;
 import com.sosnowka.model.Player;
+import com.sosnowka.model.wraper.ChangePassword;
 import com.sosnowka.service.AppUserService;
 import com.sosnowka.service.PlayerService;
+import org.aspectj.weaver.bcel.BcelAccessForInlineMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,25 +41,13 @@ public class AuthController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<Player> login(@RequestBody AppUser appUser,
-//                                        HttpServletResponse response) throws IOException {
-//        String password = appUser.getPassword();
-//        String username = appUser.getUsername();
-//        AppUser user = appUserService.findByUsername(username);
-//
-//        if (user != null && user.getPassword().equals(password)) {
-//            TokenAuthenticationService.addAuthentication(response, appUser.getUsername());
-//            Player player = playerService.findOneByUsername(username);
-//            if(player==null){
-////                player = new Player();
-//                return new ResponseEntity(HttpStatus.NOT_FOUND);
-//            }
-//            return new ResponseEntity<Player>(player, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-//        }
-//    }
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    public AuthController(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<AppUser> createPlater(@RequestBody AppUser appUser) {
@@ -72,18 +69,39 @@ public class AuthController {
 //    }
 
     @PutMapping("/change-password")
-    public HttpEntity changePassword(@RequestBody AppUser appUser) {
-        AppUser appUser1 = appUserService.findByUsername(appUser.getUsername());
+    public HttpEntity changePassword(@RequestBody ChangePassword changePassword) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+
+        AppUser appUser1 = appUserService.findByUsername(name);
         if (appUser1 == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        appUser1.setPassword(appUser.getPassword());
+        if (!bCryptPasswordEncoder.matches(changePassword.getCurrentPassword(), appUser1.getPassword()))
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        appUser1.setPassword(changePassword.getNewPassword());
         appUserService.save(appUser1);
         return new ResponseEntity(HttpStatus.OK);
     }
-//    @PutMapping("/change-email")
-//    public HttpEntity changeEmail(@RequestBody AppUser appUser){
-//        Optional<AppUser> user1 = Optional.ofNullable(appUser).ifPresent(appUser1 -> );
-//    }
+
+    @DeleteMapping("delete-account")
+    public HttpEntity deleteAccount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        AppUser appUser1 = appUserService.findByUsername(name);
+        Player player = playerService.findOneByUsername(name);
+        try {
+            playerService.delete(player);
+            appUserService.delete(appUser1);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
 
 }

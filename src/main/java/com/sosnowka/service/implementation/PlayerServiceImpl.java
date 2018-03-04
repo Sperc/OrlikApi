@@ -21,6 +21,11 @@ public class PlayerServiceImpl implements PlayerService {
     private PlayerRepository playerRepository;
 
     @Override
+    public void delete(Player player) {
+        playerRepository.delete(player);
+    }
+
+    @Override
     public Player save(Player player) {
         return playerRepository.save(player);
     }
@@ -50,4 +55,5 @@ public class PlayerServiceImpl implements PlayerService {
     public Player findOneByUsername(String username) {
         return playerRepository.findOneByUsername(username);
     }
+
 }
