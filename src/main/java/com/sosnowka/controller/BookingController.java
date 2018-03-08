@@ -87,9 +87,16 @@ public class BookingController {
         }
         return new ResponseEntity<List<Booking>>(bookingService.getSortedBookingList(date, playground), HttpStatus.OK);
     }
+
     @PostMapping("/add")
-    public ResponseEntity addBooking(@RequestBody Booking booking){
+    public ResponseEntity addBooking(@RequestBody Booking booking) {
         bookingService.createBooking(booking);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public HttpEntity deleteBooking(@PathVariable("id") Long id) {
+        bookingService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 //    @GetMapping("/{id}/get-nuber-of-all-and-bookings")

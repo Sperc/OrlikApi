@@ -52,4 +52,9 @@ public class PlaygroundController {
         return new ResponseEntity(playgroundService.findAllByCityNameAndCategory(cityName, category), HttpStatus.OK);
     }
 
+    @GetMapping("/get-one/{id}")
+    public HttpEntity getPlaygroundById(@PathVariable("id") Long id) {
+        return new ResponseEntity(playgroundService.findOneById(id), HttpStatus.OK);
+    }
+
 }
