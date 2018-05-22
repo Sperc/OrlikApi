@@ -58,7 +58,7 @@ public class AuthController {
         List<String> roles = new ArrayList<>();
         roles.add("USER");
         appUser.setRoles(roles);
-        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+//        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
         return new ResponseEntity<AppUser>(appUserService.save(appUser), HttpStatus.OK);
     }
 //
