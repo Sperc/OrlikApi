@@ -13,8 +13,6 @@ public class Picture {
     @GeneratedValue
     private Long id;
     private String name;
-
-
     public Long getId() {
         return id;
     }
