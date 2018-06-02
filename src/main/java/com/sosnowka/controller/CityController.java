@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Pawel on 01.12.2017.
  */
 @RestController
-@RequestMapping("/city")
+@RequestMapping("/cities")
 public class CityController {
     @Autowired
     CityService cityService;
 
-    @GetMapping("/all")
+    @GetMapping()
     public HttpEntity findAllCity(){
         return new ResponseEntity(cityService.getAllCity(), HttpStatus.OK);
     }

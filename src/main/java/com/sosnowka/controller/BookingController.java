@@ -1,10 +1,9 @@
 package com.sosnowka.controller;
 
-import com.sosnowka.exeption.PlayerNotFoundExeption;
+import com.sosnowka.exeption.NotFoundException;
 import com.sosnowka.model.Booking;
 import com.sosnowka.model.Player;
 import com.sosnowka.model.Playground;
-import com.sosnowka.repository.BookingRepository;
 import com.sosnowka.service.BookingService;
 import com.sosnowka.service.PlayerService;
 import com.sosnowka.service.PlaygroundService;
@@ -20,7 +19,7 @@ import java.util.List;
  * Created by Pawel on 28.10.2017.
  */
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/bookings")
 public class BookingController {
     @Autowired
     BookingService bookingService;
@@ -29,19 +28,31 @@ public class BookingController {
     @Autowired
     PlaygroundService playgroundService;
 
-    @GetMapping("/get-all")
+    @GetMapping()
     public List<Booking> allList() {
         return bookingService.findAll();
     }
 
+    @PostMapping()
+    public ResponseEntity addBooking(@RequestBody Booking booking) {
+        bookingService.createBooking(booking);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public HttpEntity deleteBooking(@PathVariable("id") Long id) {
+        bookingService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
-    public HttpEntity<Booking> getBookingById(@PathVariable("id") Long id) {
+    public HttpEntity<Booking> getBookingById(@PathVariable("id") Long id) throws NotFoundException {
         return new ResponseEntity<Booking>(bookingService.getById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/add-user")
-    public HttpEntity<List<Player>> addPlayerToBooking(@RequestParam Long id,
-                                                       @RequestParam String username) {
+    @PutMapping("/{id}/add-user/{username}")
+    public HttpEntity<List<Player>> addPlayerToBooking(@PathVariable Long id,
+                                                       @PathVariable String username) throws NotFoundException {
         Booking b = bookingService.getById(id);
         Player player = playerService.findOneByUsername(username);
         if (b.getPlayers().contains(player) || player == null) {
@@ -57,12 +68,12 @@ public class BookingController {
         return new ResponseEntity(b.getPlayers(), HttpStatus.OK);
     }
 
-    @GetMapping("/remove-user")
-    public HttpEntity<List<Player>> removePlayerFromBooking(@RequestParam Long id,
-                                                            @RequestParam String username) {
+    @DeleteMapping("/{id}/delete-user/{username}")
+    public HttpEntity<List<Player>> removePlayerFromBooking(@PathVariable Long id,
+                                                            @PathVariable String username) {
         try {
-            return new ResponseEntity<List<Player>>(bookingService.removePlayerFromBooking(id, username), HttpStatus.OK);
-        } catch (PlayerNotFoundExeption playerNotFoundExeption) {
+            return new ResponseEntity(bookingService.removePlayerFromBooking(id, username), HttpStatus.OK);
+        } catch (NotFoundException playerNotFoundExeption) {
             playerNotFoundExeption.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -72,7 +83,7 @@ public class BookingController {
     public HttpEntity<List<Booking>> getBookingByPlaygroundId(@PathVariable("playground_id") Long playground_id) {
         try {
             return new ResponseEntity<List<Booking>>(bookingService.getBookingByPlaygroundId(playground_id), HttpStatus.OK);
-        } catch (PlayerNotFoundExeption playerNotFoundExeption) {
+        } catch (NotFoundException playerNotFoundExeption) {
             playerNotFoundExeption.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -83,26 +94,9 @@ public class BookingController {
                                                                    @PathVariable("date") String date) {
         Playground playground = playgroundService.findOneById(playgroundId);
         if (playground == null) {
-            return new ResponseEntity<List<Booking>>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<List<Booking>>(bookingService.getSortedBookingList(date, playground), HttpStatus.OK);
+        return new ResponseEntity(bookingService.getSortedBookingList(date, playground), HttpStatus.OK);
     }
-
-    @PostMapping("/add")
-    public ResponseEntity addBooking(@RequestBody Booking booking) {
-        bookingService.createBooking(booking);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public HttpEntity deleteBooking(@PathVariable("id") Long id) {
-        bookingService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-//    @GetMapping("/{id}/get-nuber-of-all-and-bookings")
-//    public ResponseEntity getNumbersOfActualEndAllBookings(@PathVariable("username")){
-//
-//    }
-
 
 }

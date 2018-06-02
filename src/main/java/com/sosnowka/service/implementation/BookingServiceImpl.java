@@ -1,6 +1,7 @@
 package com.sosnowka.service.implementation;
 
-import com.sosnowka.exeption.PlayerNotFoundExeption;
+import com.sosnowka.exeption.ExceptionMessage;
+import com.sosnowka.exeption.NotFoundException;
 import com.sosnowka.model.Booking;
 import com.sosnowka.model.Player;
 import com.sosnowka.model.Playground;
@@ -8,12 +9,14 @@ import com.sosnowka.repository.BookingRepository;
 import com.sosnowka.repository.PlayerRepository;
 import com.sosnowka.repository.PlaygroundRepository;
 import com.sosnowka.service.BookingService;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -34,26 +37,24 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAllByDate(String date) {
-        return bookingRepository.findAllByDate(date);
-    }
-
-    @Override
     public Booking save(Booking booking) {
         return bookingRepository.save(booking);
     }
 
     @Override
-    public Booking getById(Long id) {
-        return bookingRepository.getById(id);
+    public Booking getById(Long id) throws NotFoundException {
+        Optional<Booking> optionalBooking = Optional.ofNullable(bookingRepository.getById(id));
+        if (!optionalBooking.isPresent())
+            throw new NotFoundException(ExceptionMessage.bookingNotFound);
+        return optionalBooking.get();
     }
 
     @Override
-    public List<Player> removePlayerFromBooking(Long bookingId, String username) throws PlayerNotFoundExeption {
+    public List<Player> removePlayerFromBooking(Long bookingId, String username) throws NotFoundException {
         Booking booking = bookingRepository.getById(bookingId);
         Player player = playerRepository.findOneByUsername(username);
         if (player == null)
-            throw new PlayerNotFoundExeption("player not found");
+            throw new NotFoundException("player not found");
         booking.getPlayers().remove(player);
         bookingRepository.save(booking);
         return booking.getPlayers();
@@ -61,9 +62,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getBookingByPlaygroundId(Long id) throws PlayerNotFoundExeption {
+    public List<Booking> getBookingByPlaygroundId(Long id) throws NotFoundException {
         Playground playground = playgroundRepository.getById(id);
-        if (playground == null) throw new PlayerNotFoundExeption("Playground not found");
+        if (playground == null) throw new NotFoundException("Playground not found");
         ArrayList<Booking> arrayList = new ArrayList<>();
         arrayList.addAll(playground.getBookingSet());
         return arrayList;

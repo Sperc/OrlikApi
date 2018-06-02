@@ -1,5 +1,6 @@
 package com.sosnowka.controller;
 
+import com.sosnowka.exeption.NotFoundException;
 import com.sosnowka.model.Booking;
 import com.sosnowka.model.Picture;
 import com.sosnowka.model.Player;
@@ -14,16 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
 import java.util.*;
 
 /**
  * Created by Pawel on 27.11.2017.
  */
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/players")
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
@@ -31,15 +29,19 @@ public class PlayerController {
     @Autowired
     private PictureService pictureService;
 
-    @PostMapping("/img-add")
-    public HttpEntity imgUpload(@RequestBody String base64) throws IOException {
-        String path = "C:\\Users\\Pawel\\Desktop\\booking\\src\\main\\resources\\static\\test.jpeg";
-
-        return new ResponseEntity(HttpStatus.OK);
+    @GetMapping()
+    public HttpEntity<Player> getLogInPlayer() throws NotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        Player p = playerService.findOneByUsername(name);
+        if (p == null) {
+            return new ResponseEntity<Player>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Player>(p, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    private HttpEntity addPlayer(@RequestBody CreatePlayerObject playerObject) {
+    @PostMapping()
+    private HttpEntity addPlayer(@RequestBody CreatePlayerObject playerObject) throws NotFoundException {
 
         Player player = playerObject.getPlayer();
         byte[] bytesPhoto = playerObject.getPhoto();
@@ -57,6 +59,14 @@ public class PlayerController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PutMapping()
+    public HttpEntity editPlayer(@RequestBody Player player) throws NotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        playerService.edit(name, player);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @GetMapping("/reservation")
     public HttpEntity<List<Booking>> getUserReservation() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -64,37 +74,13 @@ public class PlayerController {
         return new ResponseEntity<List<Booking>>(playerService.getUserReservation(name), HttpStatus.OK);
     }
 
-    @GetMapping("/get")
-    public HttpEntity<Player> getLogInPlayer() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
-        Player p = playerService.findOneByUsername(name);
-        if (p == null) {
-            return new ResponseEntity<Player>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<Player>(p, HttpStatus.OK);
-    }
 
-    @GetMapping("/get-by-username")
-    public HttpEntity<Player> getPlayerByUsername(@RequestParam String username) {
+    @GetMapping("/{username}")
+    public HttpEntity<Player> getPlayerByUsername(@PathVariable String username) throws NotFoundException {
         Player player = playerService.findOneByUsername(username);
         if (player == null) {
             return new ResponseEntity<Player>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Player>(player, HttpStatus.OK);
-    }
-
-    @PutMapping("/edit")
-    public HttpEntity editPlayer(@RequestBody Player player) {
-        if (player == null) return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
-        Player acualPlayer = playerService.findOneByUsername(name);
-        acualPlayer.setBirthDate(player.getBirthDate());
-        acualPlayer.setFirstName(player.getFirstName());
-        acualPlayer.setLastName(player.getLastName());
-        acualPlayer.setPhoneNumber(player.getPhoneNumber());
-        playerService.save(acualPlayer);
-        return new ResponseEntity(HttpStatus.OK);
     }
 }

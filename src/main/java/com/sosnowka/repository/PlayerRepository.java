@@ -10,8 +10,12 @@ import java.util.Set;
 /**
  * Created by Pawel on 17.11.2017.
  */
-public interface PlayerRepository extends JpaRepository<Player,Long>{
+public interface PlayerRepository extends JpaRepository<Player, Long> {
     public Player save(Player player);
+
     public List<Player> findAll();
+
     public Player findOneByUsername(String username);
+
+    Player findById(Long id);
 }

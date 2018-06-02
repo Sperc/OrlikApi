@@ -1,5 +1,6 @@
 package com.sosnowka.service;
 
+import com.sosnowka.exeption.NotFoundException;
 import com.sosnowka.model.AppUser;
 
 /**
@@ -10,6 +11,6 @@ public interface AppUserService {
 
     AppUser save(AppUser appUser);
 
-    void delete(AppUser appUser);
+    void delete(String name) throws NotFoundException;
 
 }

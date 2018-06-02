@@ -12,9 +12,6 @@ import java.util.Date;
  */
 public class DateClass {
     public boolean isAfterNowday(String afterDay) throws ParseException {
-//        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        Date date = formatter.parse(afterDay);
-
         LocalDate date = LocalDate.parse(afterDay);
         LocalDate nowday = LocalDate.now();
 

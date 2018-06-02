@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by Pawel on 25.02.2018.
  */
 @RestController
-@RequestMapping("/picture")
+@RequestMapping("/pictures")
 public class PictureController {
     @Autowired
     PictureService pictureService;
@@ -33,14 +33,13 @@ public class PictureController {
     @Autowired
     String getDirecotryPath;
 
-    @GetMapping(value = "/get/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public HttpEntity<byte[]> getArticleImage(@PathVariable Long id) {
 
         Picture picture = pictureService.findById(id);
-        if(picture==null) return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+        if (picture == null) return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
 
         Path path = Paths.get(getDirecotryPath + picture.getName());
-//        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\booking\\src\\main\\resources\\static\\telemedycyna.jpg");
         byte[] image = new byte[0];
         try {
             image = Files.readAllBytes(path);
@@ -52,7 +51,6 @@ public class PictureController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentLength(image.length);
-
         return new HttpEntity<byte[]>(image, headers);
     }
 
